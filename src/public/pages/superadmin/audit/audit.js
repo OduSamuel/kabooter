@@ -38,17 +38,9 @@ function loadData(page = 1) {
         // <td><a href="details.html?id=${val.id}">${val.eventType}</a></td>
         rows += `<tr>
                     <td scope="row">${sno}</td>
-<<<<<<< HEAD
-<<<<<<< HEAD
                     <td><a href>${val.eventType}</a></td>
                     <td>${val.username || ""}</td>
-=======
                     <td><a href="details.html?id=${val.id}">${val.eventType}</a></td>
-=======
-                    <td><a href>${val.eventType}</a></td>
->>>>>>> Fixed issue with deleting questions
-                    <td>${val.username}</td>
->>>>>>> Sundry changes. Audit trail UI almost there
                     <td>${val.entityName}</td>
                     <td>${val.created_at}</td>
                 </tr>`;
@@ -74,19 +66,7 @@ function init() {
     type: "GET",
     error: function(data) {},
     success: function(data) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
       var options = "<option value selected>Select event...</option>";
-=======
-      var options = "`<option value selected disabled>Select event...</option>`";
->>>>>>> Sundry changes. Audit trail UI almost there
-=======
-      var options = "`<option value selected>Select event...</option>`";
->>>>>>> Fixed issue with deleting questions
-=======
-      var options = "<option value selected>Select event...</option>";
->>>>>>> Fixed latest list of issues from Tope yesterday.
       for (var val in data) {
         options += `<option value='${data[val]}'>${val}</option>`;
       }
@@ -96,31 +76,14 @@ function init() {
 
   loadGridFooter();
   loadData();
-<<<<<<< HEAD
-<<<<<<< HEAD
-  var reloadData = function() {
-    loadData();
-  };
-  $("#username").on("input", reloadData);
-=======
   var reloadData = function() {
     loadData();
   };
   $("#username").on("change", reloadData);
->>>>>>> Fixed issue with deleting questions
   $("#ddEvent").on("change", reloadData);
   $("#dateFrom").on("change", reloadData);
   $("#dateTo").on("change", reloadData);
   $("#perPage").on("change", reloadData);
-<<<<<<< HEAD
-=======
-  $("#username").on("input", loadData);
-  $("#dateFrom").on("change", loadData);
-  $("#dateTo").on("change", loadData);
-  $("#perPage").on("change", loadData);
->>>>>>> Sundry changes. Audit trail UI almost there
-=======
->>>>>>> Fixed issue with deleting questions
   $("#gridFooter").on("click", "li.paginate_button", function() {
     const li = $(this);
     if (!li.hasClass("disabled")) loadData(parseInt(li.attr("pgInd")));
