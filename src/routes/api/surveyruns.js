@@ -9,7 +9,7 @@ if (process.env.USE_SOCKET_IO !== "true") {
   // i.e., if we're using Pusher
   router.post("/authadmin", async ctx => {
     try {
-      await pusherServices.authenticateGameAdmin(ctx.request.body, pusher, "survey");
+      await pusherServices.authenticateGameAdmin(ctx.request.body, "survey");
     } catch (e) {
       ctx.throw(e.status || 500, e);
     }
@@ -17,7 +17,7 @@ if (process.env.USE_SOCKET_IO !== "true") {
 
   router.post("/authplayer", async ctx => {
     try {
-      const res = await pusherServices.authenticateGamePlayer(pusher, ctx.request.body, "survey");
+      const res = await pusherServices.authenticateGamePlayer(ctx.request.body, "survey");
       ctx.body = res;
     } catch (e) {
       ctx.throw(e.status || 500, e);
@@ -28,7 +28,6 @@ if (process.env.USE_SOCKET_IO !== "true") {
   router.post("/getnextquestion", async ctx => {
     try {
       await pusherServices.getQuestion(
-        pusher,
         ctx.request.body,
         new SurveyQuestionService(),
         "survey"
@@ -42,7 +41,6 @@ if (process.env.USE_SOCKET_IO !== "true") {
   router.post("/submitanswer", async ctx => {
     try {
       const res = await pusherServices.onPlayerSubmitAnswer(
-        pusher,
         ctx.request.body,
         new SurveyAnswerService(),
         "survey"

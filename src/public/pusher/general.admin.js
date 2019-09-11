@@ -72,7 +72,11 @@ function authenticateGameAdmin(pin, totalQuestions, game) {
       console.log(`authenticateGameAdmin success. game = '${game}'. gameInfo = `);
       console.log(gameInfo);
       gameChannel = pusher.subscribe(`${game}admin-${pin}`);
-      gameChannel.bind("receive-next-question", onReceiveNextQuestion);
+
+      gameChannel.bind("receive-next-question", function(data) {
+        console.log("event: receive-next-question")
+        onReceiveNextQuestion(data);
+      });
 
       gameChannel.bind("player-sumbitted-answer", function(data) {
         onPlayerSubmittedAnswer(data, game);
