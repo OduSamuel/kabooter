@@ -1,1 +1,1 @@
-web: ./bin/www npm start-dev
+web: npm start-dev
