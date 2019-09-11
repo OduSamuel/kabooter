@@ -139,18 +139,16 @@ export function getRoomNo(pin, recordType) {
  * @param {*} recordType 'quiz' or 'survey'
  */
 export async function authenticateGameAdmin(data, recordType) {
-  console.log(">>> got here 1");
   // data.userInfo eg. = {i: 1, u: "djt", f: "Donald", l: "Trump", r: "Super Admin"}
   if (!data || !data.userInfo || !data.userInfo.i)
     throw new RequestError(
       "Invalid user trying to authenticate. Try logging out and logging in again before proceeding."
     );
-  console.log(">>> got here 2");    
+
   if (!data.pin) throw new RequestError("No game code received.");
-  console.log(">>> got here 3");
+
   const user = await new UserService().getById(data.userInfo.i);
   if (!user) throw new RequestError("User info does not match any existing record.");
-  console.log(">>> got here 4");
 
   data.userInfo.e = user.email;
   data.userInfo.p = user.phone;

@@ -1,9 +1,11 @@
 // Sockets now
 (function(glob) {
   // Enable pusher logging - don't include this in production
-  Pusher.logToConsole = true;
+  const _isDev = window.location.port.indexOf('3000') > -1;
+  console.log(`>>>> is dev? '${_isDev}'`)
+  Pusher.logToConsole = _isDev ? true : false;
 
-  var pusher = new Pusher("b9f4a0b1a86c48004210", {
+  var pusher = new Pusher(_isDev? "b9f4a0b1a86c48004210" : "e9f98b03d8e53fb54c93", {
     cluster: "eu",
     encrypted: true,
     forceTLS: true
