@@ -37,12 +37,12 @@ $(function() {
     var feedbackDiv = $("#login #result");
     var username = $("#username").val();
     if (!username) {
-      feedbackDiv.html(`<div class="alert alert-danger">User detail is required</div`);
+      feedbackDiv.html(`<div class="alert alert-danger">User detail is required</div>`);
       return false;
     }
     var password = $("#pass").val();
     if (!password) {
-      feedbackDiv.html(`<div class="alert alert-danger">Password is required</div`);
+      feedbackDiv.html(`<div class="alert alert-danger">Password is required</div>`);
       return false;
     }
     $.ajax({
@@ -53,7 +53,7 @@ $(function() {
         password: password
       },
       error: function(data) {
-        feedbackDiv.html(`<div class="alert alert-danger">${data.statusText}</div`);
+        feedbackDiv.html(`<div class="alert alert-danger">${data.statusText}</div>`);
       },
       success: function(data) {
         localStorage.setItem("userInfo", JSON.stringify(data.user));

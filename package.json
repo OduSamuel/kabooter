@@ -56,5 +56,8 @@
     "runapp": "npm run build"
   },
   "author": "Soma Mbadiwe",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "10.16.0"
+  }
 }
