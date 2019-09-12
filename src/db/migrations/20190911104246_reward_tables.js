@@ -1,10 +1,11 @@
 export async function up(knex) {
     return await knex.schema.createTable('rewards', (t) => {
         t.increments();
+        t.string("name");
         t.integer('availableQuantity');
         t.integer('requiredPoints');
         t.string('icon_url');
-        t.time('expiry_date');
+        t.date('expiry_date');
         t.timestamps(true, true);
       })
       .createTable('rewardclaims', (t) => {

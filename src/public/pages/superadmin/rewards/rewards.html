@@ -1,14 +1,23 @@
 <link href="/css/dataTables.bootstrap4.min.css" rel="stylesheet" />
 <div class="card">
     <div class="card-header">
-        <h3>Audit Trail</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <h3>Rewards</h3>
+            </div>
+            <div class="col-md-6">
+                <button class="btn btn-brand-light float-right" onclick="$('#viewDiv').load('rewards/addedit.html')" type="button">
+                    Create
+                </button>
+            </div>
+        </div>
     </div>
     <div class="card-body">
         <div id="result" class="alert alert-danger" style="display: none">
         </div>
         <div id="example_wrapper" class="dataTables_wrapper dt-bootstrap4">
             <div class="row">
-                <div class="col-sm-12 col-md-4">
+                <div class="col-sm-12 col-md-6">
                     <div class="dataTables_length">
                         <label>Show
                             <select id="perPage" name="perPage" class="custom-select custom-select-sm form-control form-control-sm">
@@ -19,29 +28,11 @@
                             </select> entries</label>
                     </div>
                 </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="dataTables_filter">
-                        <label>
-                            From:
-                            <input id="dateFrom" type="date" class="form-control form-control-sm" />
+                <div class="col-sm-12 col-md-6">
+                    <div id="example_filter" class="dataTables_filter">
+                        <label>Search:
+                            <input id="search" type="search" class="form-control form-control-sm" placeholder="" aria-controls="example">
                         </label>
-                    </div>
-                    <div class="dataTables_filter">
-                        <label>
-                            <input id="username" name="username" placeHolder="Search username" class="form-control form-control-sm" />
-                        </label>
-                    </div>
-                </div>
-                <div class="col-sm-12 col-md-4">
-                    <div class="dataTables_filter">
-                        <label>To:
-                            <input id="dateTo" type="date" class="form-control form-control-sm" />
-                        </label>
-                    </div>
-                    <div class="dataTables_filter">
-                        <select id="ddEvent" name="ddEvent" placeHolder="Select event" class="form-control form-control-sm">
-                            <option value="100">Do you</option>
-                        </select>
                     </div>
                 </div>
                 <!-- <div class="col-sm-12 col-md-2">
@@ -53,10 +44,10 @@
                         <thead>
                             <tr>
                                 <th scope="col" class="font-bold">#</th>
-                                <th scope="col" class="font-bold">Event</th>
-                                <th scope="col" class="font-bold">Username</th>
-                                <th scope="col" class="font-bold">Entity</th>
-                                <th scope="col" class="font-bold">Action date</th>
+                                <th scope="col" class="font-bold">Name</th>
+                                <th scope="col" class="font-bold">Available Quantity</th>
+                                <th scope="col" class="font-bold">Required Points</th>
+                                <th scope="col" class="font-bold">Expiry date</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -68,9 +59,9 @@
         </div>
     </div>
 </div>
-<script src="/pages/superadmin/audit/audit.js"></script>
+<script src="/pages/superadmin/rewards/rewards.js"></script>
 <script>
     $(function () {
-        init();
+        initReward("/api/superadmin/rewards");
     });
 </script>
