@@ -1,8 +1,34 @@
+loadScript("../../js/sweetalert2.all.min.js", function () {
+  console.log("loaded alertify");
+});
+function loadScript(url, callback) {
+
+  var script = document.createElement("script")
+  script.type = "text/javascript";
+
+  if (script.readyState) {  //IE
+    script.onreadystatechange = function () {
+      if (script.readyState == "loaded" ||
+        script.readyState == "complete") {
+        script.onreadystatechange = null;
+        callback();
+      }
+    };
+  } else {  //Others
+    script.onload = function () {
+      callback();
+    };
+  }
+
+  script.src = url;
+  document.getElementsByTagName("head")[0].appendChild(script);
+}
+
 function fadeOutLoader() {
   // console.log('game loading...');
   gameContainer.style.display = "none";
 
-  setTimeout(function() {
+  setTimeout(function () {
     loader.style.display = "none";
     gameContainer.style.display = "block";
   }, 3000);
@@ -125,5 +151,5 @@ const UserRoleOptions = {
 
 // Turn off console logging in production
 if (window.location.hostname !== "localhost" && window.location.hostname !== "127.0.0.1") {
-  console.log = function() {};
+  console.log = function () { };
 }

@@ -1,0 +1,50 @@
+<h1 class="font-weight-light text-center text-secondary">Dashboard</h1>
+<div class="row mt-5 my-card">
+    <div class="col-md-8 border-right">
+        <div class="row">
+            <div class="col-md-6 p-4 text-center">
+                <img src="../assets/img/svg/exam.svg" width="80" alt="">
+                <p class="pt-3 text-secondary">Allows Users Create Quiz questions and desirable answers for questions.</p>
+                <a role="button" href="quiz/addedit.html" class="btn btn-brand text-white btn-block">Create Quiz</a>
+            </div>
+            <div class="col-md-6 p-4 text-center">
+                <img src="../assets/img/svg/science.svg" width="80" alt="">
+                <p class="pt-3 text-secondary">Allows Users Create Polls with desirable options for players to select.</p>
+                <a href="vote/addedit.html" class="btn btn-brand text-white btn-block">Create Polls</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 text-center dashboard-header text-white p-3">
+        <div class="pt-3">
+            <h4 class="font-weight-light border-bottom pb-2">Summary</h4>
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="font-large font-extra-bold">
+                        <span id='nquiz'></span>
+                    </h1>
+                    Quizzes Created
+                    <br>
+                    <a role="button" href="quiz/quiz.html" class="btn btn-brand btn-sm btn-block">View details</a>
+                </div>
+                <div class="col-6">
+                    <h1 class="font-large font-extra-bold">
+                        <span id='npoll'></span>
+                    </h1>
+                    Polls Created
+                    <br>
+                    <a role="button" href="vote/vote.html" class="btn btn-brand btn-sm btn-block">View details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="display: none" id="pwdChangeMsg">
+    <div class="row">
+        <div class="col-md-12 text-center"><h4>Change your password!</h4></div>
+        <div class="col-ms-12 text-secondary">
+            <p>You have not changed your password from the default provided. 
+                We recommend that you change it by clicking the button below</p>
+        </div>
+    </div>
+</div>

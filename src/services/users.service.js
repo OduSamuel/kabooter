@@ -188,6 +188,19 @@ export default class UserService extends BaseEntityService {
     await this.update(user, requestData);
   }
 
+  async checkPassword(uid) {
+    const user = await this.getById(uid);
+    if (!user) throw new RequestError("Invalid user id");
+    const isPwdSame = await compare("pa55w0rd", user.passwordHash);
+    const result = {
+      changed: true
+    }
+    if(isPwdSame){
+      result.changed = false;
+    }
+    return result;
+  }
+
   /**
    * This is for admin users
    * @param {*} requestData [Optional] the request; will usually be ctx.request
@@ -242,7 +255,8 @@ export default class UserService extends BaseEntityService {
         f: user.firstname,
         u: user.username,
         e: user.email,
-        p: user.phone
+        p: user.phone,
+        x: true
       };
     }
     const username = await this.generateUsername(userRegInfo.lastname, userRegInfo.firstname);
@@ -253,7 +267,9 @@ export default class UserService extends BaseEntityService {
       phone: userRegInfo.phone,
       username: username,
       roles: Enums.UserRoleOptions.Players,
-      usertype: Enums.UserType.SocialUser
+      usertype: Enums.UserType.SocialUser,
+      disabled: false, 
+      passwordHash: hashSync("pa55w0rd", genSaltSync())
     };
     user.id = await this.save(user, requestData);
     sendWelcomeEmailToPlayer(user);
@@ -263,7 +279,8 @@ export default class UserService extends BaseEntityService {
       f: userRegInfo.firstname,
       u: username,
       e: user.email,
-      p: user.phone
+      p: user.phone,
+      x: false
     };
   }
 

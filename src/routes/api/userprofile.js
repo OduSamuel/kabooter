@@ -39,6 +39,16 @@ router.post("/changepassword", async ctx => {
   }
 });
 
+router.post("/checkpassword", async ctx => {
+  try {
+    const userId = ctx.request.user.id;
+    const res = await new UserService().checkPassword(userId);
+    ctx.body = res;
+  } catch (e) {
+    ctx.throw(e.status || 500, e);
+  }
+});
+
 // console.log(router.stack.map(i => i));
 // Don't change this to ES6 style. We use 'require' to auto-register routes
 // See src/app.js

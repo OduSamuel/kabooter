@@ -9,7 +9,7 @@ function setupGeneralChannel(recordType) {
 
   channel.bind("error", callbackOnGamePlayerError);
 
-  channel.bind("disconnect", function(reason) {
+  channel.bind("disconnect", function (reason) {
     onPlayerDisconnect(reason, recordType);
   });
 }
@@ -27,21 +27,42 @@ function setupGeneralChannel(recordType) {
  * @param {*} recordType 'quiz' or 'survey'
  */
 function onGetPlayPin(playerInfo, recordType) {
+  var pi = playerInfo;
+  var rt = recordType;
+  var gi;
   $.ajax({
     type: "POST",
     url: `/api/user/${recordType}runs/authplayer`,
     data: playerInfo,
-    error: function(error) {
+    error: function (error) {
       alert(JSON.stringify(error));
     },
-    success: function(gameInfo) {
-      localStorage.setItem("token", gameInfo.token);
-      gameChannel = pusher.subscribe(`${recordType}player-${gameInfo.userInfo.pin}`);
-      gameChannel.bind("receive-next-question", onPlayerReceiveNextQuestion);
-
-      onAuthSuccess(gameInfo, recordType);
+    success: function (gameInfo) {
+      gi = gameInfo;
+      //Check that the user already exists
+      if(gi.userInfo.x) subscribeToGameChannel(gi, rt);
+      else{
+        Swal.fire({
+          type: "success",
+          html: $("#startgameMsg").html(),
+          width: 800,
+          showConfirmButton: true,
+          confirmButtonText: "Play Game",
+          confirmButtonColor: "#05164d"
+        }).then(function () {
+          subscribeToGameChannel(gi, rt);
+        });
+      }
     }
   });
+}
+
+function subscribeToGameChannel(gi, rt){
+  localStorage.setItem("token", gi.token);
+  gameChannel = pusher.subscribe(`${rt}player-${gi.userInfo.pin}`);
+  gameChannel.bind("receive-next-question", onPlayerReceiveNextQuestion);
+
+  onAuthSuccess(gi, rt);
 }
 
 function onPlayerDisconnect(reason, recordType) {
@@ -72,11 +93,11 @@ function submitAnswer(answerToSubmit, game) {
     url: `/api/user/${game}runs/submitanswer`,
     data: answerToSubmit,
     beforeSend: setAuthToken,
-    error: function(error) {
+    error: function (error) {
       console.log(error);
       alert(error);
     },
-    success: function(feedback) {
+    success: function (feedback) {
       console.log(feedback);
       // If all went well, 'feedback' will just be a string saying "Submitted".
       //TODO: You decide. You can clear input fields or reset data used for the just-submitted question.

@@ -17,7 +17,7 @@
         <div id="notEnabled" class="container mt-5" style="display: none">
             <p>You've not been enabled by Super Admin to create polls or quizzes</p>
         </div>
-        <div id="selectKahoot" class="container mt-5">
+        <div id="selectKahoot" style="display: none" class="container mt-5">
             <h1 class="font-weight-light text-center text-secondary">Select an Action</h1>
             <div class="row mt-5 my-card">
                 <div class="col-md-8 border-right">
@@ -95,23 +95,28 @@
                     </div>
                 </div>
             </div>
-            
             <div class="row mt-5">
         </div>
     </div>
     <script src="/js/jquery.min.js"></script>
     <script src="/js/app.js"></script>
     <script src="../general.js"></script>
+    <script src="./dashboard.js"></script>
     <script>
         $(function () {
             try {
                 loadNavBar();
-
                 var userInfo = getUserInfo();
-                if (userInfo.d && userInfo.r === UserRoleOptions.Moderator) { // if moderator is not yet enabled
-                    $("#selectKahoot").hide();
+                if (userInfo.r == UserRoleOptions.Players){
+                    $("#selectKahoot").load("./player-dashboard.html");
+                    $("#selectKahoot").show();
+                    loadPlayerDashboard();
+                    checkPlayerPassword();
+                }
+                else if (userInfo.d && userInfo.r == UserRoleOptions.Moderator) { // if moderator is not yet enabled
                     $("#notEnabled").show();
                 } else {
+                    $("#selectKahoot").show();
                     var token = localStorage.getItem("token");
                     var myUrl = window.location.origin + '/api/user/profile';
 

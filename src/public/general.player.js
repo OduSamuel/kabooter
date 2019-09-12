@@ -50,10 +50,8 @@ function startGamePlay(e, game) {
       alert("First name not set.");
       return;
     }
-    if (!email && !phone) {
-      alert(
-        "We need at least one way to contact you. So give us either email address or phone number"
-      );
+    if (!email) {
+      alert("We need your email to contact you when you win rewards.");
       return;
     }
   }
