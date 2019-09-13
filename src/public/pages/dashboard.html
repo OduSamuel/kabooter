@@ -112,6 +112,7 @@
                     $("#selectKahoot").show();
                     loadPlayerDashboard();
                     checkPlayerPassword();
+                    loadAvailableRewards();
                 }
                 else if (userInfo.d && userInfo.r == UserRoleOptions.Moderator) { // if moderator is not yet enabled
                     $("#notEnabled").show();

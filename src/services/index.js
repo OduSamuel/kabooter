@@ -12,6 +12,7 @@ import SurveyAnswerService from "./surveyanswers.service";
 import SurveyRunService from "./surveyruns.service";
 import AuditLogService from "./auditlogs.service";
 import RewardService from "./rewards.service";
+import UserPointService from "./userpoints.service";
 
 export {
   UserService,
@@ -27,5 +28,6 @@ export {
   SurveyAnswerService,
   SurveyRunService,
   AuditLogService,
-  RewardService
+  RewardService,
+  UserPointService
 };

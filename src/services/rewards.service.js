@@ -1,4 +1,5 @@
 import { BaseEntityService } from "./baseentity.service";
+import { UserPointService } from ".";
 import Enums from "./enums";
 import log from "../utils/log";
 import { RequestError } from "../utils/ValidationErrors";
@@ -33,6 +34,13 @@ export default class RewardService extends BaseEntityService {
         "q.created_at"
       ]);
     return await this.dbPaging(query, { page: queryParams.page, perPage: queryParams.perPage });
+  }
+
+  async getPlayerRewards(userId) {
+    const points = await new UserPointService().getByUserId(userId);
+    const query = `
+    select * from rewards where requiredPoints <= ? and expiry_date >= ?`;
+    return await this.runSqlSelectQuery(query, [points.availablePoints, moment(new Date()).format("YYYY-MM-DD")]);
   }
 
   async deleteRecord(id, requestObject) {

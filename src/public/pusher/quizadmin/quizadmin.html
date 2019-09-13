@@ -138,7 +138,7 @@
                                         <div class="col-12">
                                             <button id="loadQuestion" onclick="loadNextQuestion(event, 'quiz')" class="btn btn-lg btn-brand">Go
                                                 to next question</button>
-                                            <button onclick="showAdminEndView('quiz')" class="btn btn-lg btn-danger">End
+                                            <button onclick="loadNextQuestion(event, 'quiz'); showAdminEndView('quiz');" class="btn btn-lg btn-danger">End
                                                 game</button>
                                         </div>
                                     </div>

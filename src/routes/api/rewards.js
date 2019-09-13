@@ -46,6 +46,16 @@ router.get("/", async ctx => {
   }
 });
 
+router.get("/player", async ctx => {
+  try {
+    const userId = ctx.request.user.id;
+    const res = await new RewardService().getPlayerRewards(userId);
+    ctx.body = res;
+  } catch (e) {
+    ctx.throw(e.status || 500, e);
+  }
+});
+
 router.get("/:id", async ctx => {
   try {
     validateInteger(ctx.params.id, "id", true);

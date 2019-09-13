@@ -59,3 +59,9 @@ export function isObject(a) {
 export function getKeyByValue(object, value) {
   return Object.keys(object).find(key => object[key] === value);
 }
+
+export async function asyncForEach(array, callback) {
+  for (let index = 0; index < array.length; index++) {
+    await callback(array[index], index, array);
+  }
+}

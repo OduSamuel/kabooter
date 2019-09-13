@@ -1,5 +1,5 @@
 import { BaseEntityService } from "./baseentity.service";
-import { QuizService, SurveyService, QuizAnswerService, SurveyAnswerService } from ".";
+import { QuizService, SurveyService, QuizAnswerService, SurveyAnswerService, UserPointService } from ".";
 import { validatePlayerRegistration } from "../routes/api/public/noauth.validate";
 import { RequestError, ValidationError, Required } from "../utils/ValidationErrors";
 import { sign } from "jsonwebtoken";
@@ -163,6 +163,7 @@ export default class UserService extends BaseEntityService {
       securityquestion: user.securityquestion,
       securityanswer: user.securityanswer
     };
+    result.nPoints = await new UserPointService().getByUserId(uid);
     result.nQuizzes = await new QuizService().getUserQuizCount(uid);
     result.nSurveys = await new SurveyService().getUserSurveyCount(uid);
     result.nQuizAnswered = await new QuizAnswerService().getUserQuizParticipationCount(uid);

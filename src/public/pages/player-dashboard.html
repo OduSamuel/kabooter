@@ -3,14 +3,14 @@
     <div class="col-md-8 border-right">
         <div class="row">
             <div class="col-md-6 p-4 text-center">
-                <img src="../assets/img/svg/exam.svg" width="80" alt="">
-                <p class="pt-3 text-secondary">Allows Users Create Quiz questions and desirable answers for questions.</p>
-                <a role="button" href="quiz/addedit.html" class="btn btn-brand text-white btn-block">Create Quiz</a>
+                <img src="../assets/img/svg/american-football.svg" width="80" alt="">
+                <p class="pt-3 text-secondary">Participate in a quiz and stand a chance to win awesome rewards.</p>
+                <a role="button" href="#" class="btn btn-brand text-white btn-block">Play Quiz</a>
             </div>
             <div class="col-md-6 p-4 text-center">
                 <img src="../assets/img/svg/science.svg" width="80" alt="">
-                <p class="pt-3 text-secondary">Allows Users Create Polls with desirable options for players to select.</p>
-                <a href="vote/addedit.html" class="btn btn-brand text-white btn-block">Create Polls</a>
+                <p class="pt-3 text-secondary">Participate in a pre-templated survey/poll of your choice.</p>
+                <a href="#" class="btn btn-brand text-white btn-block">Play Polls</a>
             </div>
         </div>
     </div>
@@ -20,24 +20,67 @@
             <div class="row">
                 <div class="col-6">
                     <h1 class="font-large font-extra-bold">
-                        <span id='nquiz'></span>
+                        <span id='aquiz'></span>
                     </h1>
-                    Quizzes Created
-                    <br>
-                    <a role="button" href="quiz/quiz.html" class="btn btn-brand btn-sm btn-block">View details</a>
+                    Quizzes Answered
+                    <!-- <button class="btn btn-brand btn-sm btn-block">View details</button> -->
                 </div>
                 <div class="col-6">
                     <h1 class="font-large font-extra-bold">
-                        <span id='npoll'></span>
+                        <span id='apoll'></span>
                     </h1>
-                    Polls Created
-                    <br>
-                    <a role="button" href="vote/vote.html" class="btn btn-brand btn-sm btn-block">View details</a>
+                    Polls Answered
+                    <!-- <button class="btn btn-brand btn-sm btn-block">View details</button> -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<div class="row mt-5 my-card">
+    <div class="col-md-8 border-right">
+        <div class="row">
+            <div class="col-md-12 col-sm-12 p-4 text-center">
+                <h4>Rewards</h4>
+                <div style="max-height: 300px; overflow:auto" class="text-brand">
+                    <table id="rewardsTable" class="table table-hover table-borderless">
+                        <thead class="btn-brand">
+                            <tr>
+                                <th scope="col" class="font-bold">#</th>
+                                <th scope="col" class="font-bold">Rewards</th>
+                                <th scope="col" class="font-bold">For Score</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 text-center dashboard-header text-white p-3">
+        <div class="pt-3">
+            <h4 class="font-weight-light border-bottom pb-2">Summary</h4>
+            <div class="row">
+                <div class="col-6">
+                    <h1 class="font-large font-extra-bold">
+                        <span id='available'></span>
+                    </h1>
+                    Available Points
+                    <!-- <button class="btn btn-brand btn-sm btn-block">View details</button> -->
+                </div>
+                <div class="col-6">
+                    <h1 class="font-large font-extra-bold">
+                        <span id='redeemed'></span>
+                    </h1>
+                    Redeemed Points
+                    <!-- <button class="btn btn-brand btn-sm btn-block">View details</button> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5"></div>
 
 <div style="display: none" id="pwdChangeMsg">
     <div class="row">

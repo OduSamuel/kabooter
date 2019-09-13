@@ -1,6 +1,7 @@
 import { validateInteger, RequestError } from "../../utils/ValidationErrors";
 import log from "../../utils/log";
-import { UserService, QuizRunService, SurveyRunService } from "../";
+import { asyncForEach } from "../../utils";
+import { UserService, QuizRunService, SurveyRunService, UserPointService } from "../";
 import { sign } from "jsonwebtoken";
 import pusher from "./pusher-setup";
 
@@ -90,7 +91,7 @@ function tellAdminThatSomeoneJustJoined(userInfo, recordType) {
   log.debug("Querying pusher for num of subscriptions in %s", playerChannel);
   pusher.get(
     { path: `/channels/${playerChannel}`, params: { info: "subscription_count" } },
-    function(error, request, response) {
+    function (error, request, response) {
       if (response.statusCode === 200) {
         const result = JSON.parse(response.body);
         const totalPlayers = result.subscription_count;
@@ -289,6 +290,19 @@ export async function getQuestion(data, questionService, recordType) {
   if (question) {
     question.Number = !answeredQuestionIds ? 1 : answeredQuestionIds.length + 1;
     question.recordType = recordType;
+  }
+  
+  if (recordType == "quiz") {
+    const l = await questionService.getTotalQuizQuestions(data.gameRunInfo.gameId);
+    const a = !answeredQuestionIds ? 0 : answeredQuestionIds.length;
+    if (l == a) {
+      const scores = await new QuizRunService().getPlayerTotalScores(data.gameRunInfo.gameRunId, null);
+      if (scores) {
+        asyncForEach(scores, async (s) => {
+          await new UserPointService().updateScore(s.score, s.userId, data);
+        });
+      }
+    }
   }
   // send question to both moderators and players
   //NB: We could have sent to players by socket and to this admin as HTTP POST result;

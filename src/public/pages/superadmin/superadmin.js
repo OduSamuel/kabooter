@@ -77,6 +77,7 @@ function loadReward(id) {
     },
     success: function (data) {
       $('#viewDiv').load('rewards/addedit.html', function () {
+        $("#pageHeading").html("Update Reward");
         $("#itemId").val(data.id);
         $("#name").val(data.name);
         $("#points").val(data.requiredPoints);
