@@ -47,8 +47,8 @@ function loadPlayerDashboard() {
         success: function (data) {
             $('#aquiz').html(data.nQuizAnswered);
             $('#apoll').html(data.nSurveyAnswered);
-            $('#redeemed').html(data.nPoints? data.nPoints.totalRedeemed : 0);
-            $('#available').html(data.nPoints? data.nPoints.availablePoints : 0);
+            $('#redeemed').html(data.nPoints ? data.nPoints.totalRedeemed : 0);
+            $('#available').html(data.nPoints ? data.nPoints.availablePoints : 0);
         }
     });
 }
@@ -62,22 +62,22 @@ function loadAvailableRewards() {
         },
         url: myUrl,
         type: 'get',
-        error: function(data) {
-          console.log(data);
+        error: function (data) {
+            console.log(data);
         },
-        success: function(data) {
-          let rows = "";
-          $.each(data, function(i, element) {
-            rows += `
+        success: function (data) {
+            let rows = "";
+            $.each(data, function (i, element) {
+                rows += `
           <tr>
               <td>${i + 1}</td>
               <td>${element.name}</td>
               <td>${element.requiredPoints}</td>
           </tr>
           `;
-          });
-  
-          $("#rewardsTable tbody").html(rows);
+            });
+
+            $("#rewardsTable tbody").html(rows);
         }
-      });
+    });
 }

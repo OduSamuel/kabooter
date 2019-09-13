@@ -1,6 +1,10 @@
 loadScript("../../js/sweetalert2.all.min.js", function () {
   console.log("loaded alertify");
 });
+loadScript("../../js/pace.min.js", function () {
+  console.log("loaded pace");
+  $(document).ajaxStart(function() { Pace.restart(); });
+});
 function loadScript(url, callback) {
 
   var script = document.createElement("script")
