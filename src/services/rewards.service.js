@@ -20,7 +20,7 @@ export default class RewardService extends BaseEntityService {
     const query = this.connector
       .table(this.tableName + " as q")
       .modify(queryBuilder => {
-        if (queryParams.title) {
+        if (queryParams.name) {
           queryBuilder.where("q.name", "like", `%${queryParams.name}%`);
         }
       })
@@ -39,7 +39,8 @@ export default class RewardService extends BaseEntityService {
   async getPlayerRewards(userId) {
     const points = await new UserPointService().getByUserId(userId);
     const query = `
-    select * from rewards where requiredPoints <= ? and expiry_date >= ?`;
+    select * from rewards where availableQuantity >= 1 
+    and requiredPoints <= ? and expiry_date >= ?`;
     return await this.runSqlSelectQuery(query, [points.availablePoints, moment(new Date()).format("YYYY-MM-DD")]);
   }
 
@@ -81,6 +82,11 @@ export default class RewardService extends BaseEntityService {
       requiredPoints: payload.points,
       expiry_date: moment(payload.expiry_date).format('YYYY-MM-DD')
     };
+    await super.update(reward, requestObject);
+    return { id: reward.id };
+  }
+
+  async internalModify(reward, requestObject){
     await super.update(reward, requestObject);
     return { id: reward.id };
   }

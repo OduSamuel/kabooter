@@ -1,5 +1,5 @@
 import Router from "koa-router";
-import { QuizService, SurveyService, RewardService } from "../../services";
+import { QuizService, SurveyService, RewardService, RewardClaimService } from "../../services";
 
 const router = new Router({ prefix: "/api/superadmin" });
 
@@ -26,6 +26,17 @@ router.get("/surveys", async ctx => {
 router.get("/rewards", async ctx => {
   try {
     const res = await new RewardService().getRecordsPaged(ctx.request.query);
+    console.log(res.pagination);
+    ctx.body = res;
+  } catch (e) {
+    console.log(e.message);
+    ctx.throw(e.status || 500, e);
+  }
+});
+
+router.get("/rewardclaims", async ctx => {
+  try {
+    const res = await new RewardClaimService().getRecordsPaged(ctx.request.query);
     console.log(res.pagination);
     ctx.body = res;
   } catch (e) {

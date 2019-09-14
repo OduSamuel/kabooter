@@ -72,12 +72,44 @@ function loadAvailableRewards() {
           <tr>
               <td>${i + 1}</td>
               <td>${element.name}</td>
-              <td>${element.requiredPoints}</td>
+              <td>${element.requiredPoints} points</td>
+              <td>${element.availableQuantity}</td>
+              <td><button type="button" class="btn btn-brand btn-sm" onclick="claimReward(${element.id})">Claim</button></td>
           </tr>
           `;
             });
 
             $("#rewardsTable tbody").html(rows);
+        }
+    });
+}
+
+function claimReward(id){
+    var token = localStorage.getItem("token");
+    var myUrl = window.location.origin + '/api/user/rewardclaims/create';
+    $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        data: {
+            rewardId : id
+        },
+        url: myUrl,
+        type: 'post',
+        error: function (data) {
+            console.log(data);
+        },
+        success: function (data) {
+            Swal.fire({
+                type: "success",
+                html: $("#rewardClaimedMsg").html(),
+                width: 600,
+                showConfirmButton: true,
+                confirmButtonText: "Ok, That's fine",
+                confirmButtonColor: "#05164d"
+            }).then(function () {
+                window.location.reload();
+            });
         }
     });
 }

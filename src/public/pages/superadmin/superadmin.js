@@ -14,6 +14,10 @@ $("#nav-reward").click(function () {
   $("#viewDiv").load("rewards/rewards.html");
 });
 
+$("#nav-rewardclaim").click(function () {
+  $("#viewDiv").load("rewardclaims/rewardclaims.html");
+});
+
 $("#nav-audit").click(function () {
   $("#viewDiv").load("audit/audit.html");
 });
