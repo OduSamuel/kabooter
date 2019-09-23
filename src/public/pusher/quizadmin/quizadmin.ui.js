@@ -20,6 +20,7 @@ function getTopScores() {
             <td>${i + 1}</td>
             <td>[${element.username}] ${element.firstname} ${element.lastname}</td>
             <td>${element.score}</td>
+            <td>${String(element.completionDate).replace('T', ' ').replace('.000Z', '')}</td>
         </tr>
         `;
         });

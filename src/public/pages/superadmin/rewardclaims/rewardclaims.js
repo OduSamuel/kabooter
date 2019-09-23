@@ -52,7 +52,10 @@ function loadData(page, apiEndPoint) {
 function getOneUserRow(sno, val) {
     let action = val.approved? `<button class="btn btn-warning btn-block btn-sm" 
     onclick="fulfillClaim(${val.id})">Delivered</button>`:
-    `<button class="btn btn-success btn-block btn-sm" onclick="approveClaim(${val.id})">Approve</button>`;
+    `<table><tr>
+    <td><button class="btn btn-success btn-block btn-sm" onclick="approveClaim(${val.id})">Approve</button></td>
+    <td><button class="btn btn-danger btn-block btn-sm" onclick="rejectClaim(${val.id})">Reject</button></td>
+    </tr></table>`;
     let row = `<tr>
                   <td scope="row">${sno}</td>
                   <td>${val.lastname} ${val.firstname} [${val.username}]</td>
@@ -81,6 +84,33 @@ function approveClaim(id){
             Swal.fire({
                 type: "success",
                 html: "<h4>Reward Claim Approved!</h4>",
+                width: 400,
+                showConfirmButton: true,
+                confirmButtonText: "Ok",
+                confirmButtonColor: "#05164d"
+            }).then(function () {
+                $("#nav-rewardclaim").click();
+            });
+        }
+    });
+}
+
+function rejectClaim(id){
+    var token = localStorage.getItem("token");
+    var myUrl = window.location.origin + `/api/user/rewardclaims/reject/${id}`;
+    $.ajax({
+        headers: {
+            Authorization: 'Bearer ' + token
+        },
+        url: myUrl,
+        type: 'post',
+        error: function (data) {
+            console.log(data);
+        },
+        success: function (data) {
+            Swal.fire({
+                type: "success",
+                html: "<h4>Reward Claim Rejected!</h4>",
                 width: 400,
                 showConfirmButton: true,
                 confirmButtonText: "Ok",

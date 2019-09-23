@@ -73,7 +73,7 @@ function loadAvailableRewards() {
               <td>${i + 1}</td>
               <td>${element.name}</td>
               <td>${element.requiredPoints} points</td>
-              <td>${element.availableQuantity}</td>
+              <td>${String(element.expiry_date).split('T')[0]}</td>
               <td><button type="button" class="btn btn-brand btn-sm" onclick="claimReward(${element.id})">Claim</button></td>
           </tr>
           `;
@@ -100,12 +100,15 @@ function claimReward(id){
             console.log(data);
         },
         success: function (data) {
+            let userInfo = localStorage.getItem('userInfo');
+            userInfo = JSON.parse(userInfo);
+            $("#cust-name").html(`${userInfo.f}`);
             Swal.fire({
                 type: "success",
                 html: $("#rewardClaimedMsg").html(),
                 width: 600,
                 showConfirmButton: true,
-                confirmButtonText: "Ok, That's fine",
+                confirmButtonText: "Ok",
                 confirmButtonColor: "#05164d"
             }).then(function () {
                 window.location.reload();

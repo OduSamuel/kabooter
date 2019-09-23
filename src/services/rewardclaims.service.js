@@ -24,6 +24,7 @@ export default class RewardClaimService extends BaseEntityService {
       .join('rewards as r', 'c.rewardId', '=', 'r.id')
       .modify(queryBuilder => {
         queryBuilder.whereNot('c.fulfilled', true);
+        queryBuilder.where('c.rejected', false);
         if (queryParams.name) {
           queryBuilder.where("u.firstname", "like", `%${queryParams.name}%`)
           .orWhere("u.lastname", "like", `%${queryParams.name}%`)
@@ -36,6 +37,7 @@ export default class RewardClaimService extends BaseEntityService {
         "c.rewardId",
         "c.fulfilled",
         "c.approved",
+        "c.rejected",
         "c.updated_at",
         "u.username",
         "u.firstname",
@@ -101,6 +103,38 @@ export default class RewardClaimService extends BaseEntityService {
     };
     const options = { to: user.email, subject: viewData.title };
     new Emailer().sendEmail(options, `reward-approved.html`, viewData);
+    return { id: id };
+  }
+
+  async reject(id, requestObject){
+    const existing = await this.getFirst({ id: id });
+    if(!existing) {
+        throw new RequestError(`Reward claim does not exist`);
+    }
+    const points = await new UserPointService().getByUserId(existing.userId);
+    const reward = await new RewardService().getById(existing.rewardId);
+    if (!reward) throw new RequestError(`The reward does not exist`);
+    if (!points) throw new RequestError(`User points does not exist`);
+
+    reward.availableQuantity += 1;
+    points.availablePoints += reward.requiredPoints;
+    points.totalRedeemed -= reward.requiredPoints;
+    existing.rejected = true;
+    new RewardService().internalModify(reward, requestObject);
+    new UserPointService().update(points, requestObject);
+    await super.update(existing, requestObject);
+
+    //send mail here
+    const user = await new UserService().getById(requestObject.user.id);
+    const viewData = {
+      title: `${process.env.APP_NAME}: Your reward has been rejected.`,
+      firstname: user.firstname,
+      lastname: user.lastname,
+      username: user.username,
+      reward: reward.name
+    };
+    const options = { to: user.email, subject: viewData.title };
+    new Emailer().sendEmail(options, `reward-rejected.html`, viewData);
     return { id: id };
   }
 

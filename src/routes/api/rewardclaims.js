@@ -23,6 +23,16 @@ router.post("/approve/:id", async ctx => {
     }
 });
 
+router.post("/reject/:id", async ctx => {
+    try {
+        validateInteger(ctx.params.id, "id");
+        const res = await new RewardClaimService().reject(ctx.params.id, ctx.request);
+        ctx.body = res;
+    } catch (e) {
+        ctx.throw(e.status || 500, e);
+    }
+});
+
 router.post("/fulfill/:id", async ctx => {
     try {
         validateInteger(ctx.params.id, "id");

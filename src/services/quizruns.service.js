@@ -12,12 +12,13 @@ export default class QuizRunService extends BaseEntityService {
 
   async getPlayerTotalScores(quizRunId, limit) {
     const query = `
-    SELECT g.quizRunId, g.userId, u.username, u.firstname, u.lastname, SUM(g.points + g.bonus) AS score 
+    SELECT g.quizRunId, g.userId, u.username, u.firstname, u.lastname, 
+    SUM(g.correct * (g.points + g.bonus)) AS score, MAX(g.created_at) AS completionDate
     FROM quizanswers g
     INNER JOIN users u ON u.id = g.userId
     GROUP BY g.quizRunId, g.userId
     HAVING g.quizRunId = ?
-    ORDER BY score DESC`;
+    ORDER BY score DESC, completionDate ASC`;
     return await this.runSqlSelectQuery(query, [quizRunId]);
   }
 

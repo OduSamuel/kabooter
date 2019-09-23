@@ -51,8 +51,8 @@ export async function seed(knex) {
     },
     {
       id: 2,
-      lastname: "Trump",
-      firstname: "Donald",
+      lastname: "LHG",
+      firstname: "Trump",
       username: "djt",
       email: "trump@gmail.com",
       organization: "",

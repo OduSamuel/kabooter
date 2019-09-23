@@ -1,9 +1,12 @@
-<h1 class="font-weight-light text-center text-secondary">Dashboard</h1>
+<h1 class="font-weight-light text-center text-secondary"><img src="../assets/img/svg/lhg-wordmark.png" width="200" alt=""></h1>
 <div class="row mt-5 my-card">
     <div class="col-md-8 border-right">
         <div class="row">
             <div class="col-md-6 p-4 text-center">
-                <img src="../assets/img/svg/dice-two.png" width="80" alt="">
+                <img src="../assets/img/svg/experts.png" width="200" alt="" style="
+                height: 50px;
+                margin-top: 30px;
+            ">
                 <p class="pt-3 text-secondary">Participate in a quiz and stand a chance to win awesome rewards.</p>
                 <a role="button" href="#" class="btn btn-brand text-white btn-block">Play Quiz</a>
             </div>
@@ -49,7 +52,7 @@
                                 <th scope="col" class="font-bold">#</th>
                                 <th scope="col" class="font-bold">Reward</th>
                                 <th scope="col" class="font-bold">Prize worth</th>
-                                <th scope="col" class="font-bold">Available Quantity</th>
+                                <th scope="col" class="font-bold">Expiration Date</th>
                                 <th scope="col" class="font-bold"></th>
                             </tr>
                         </thead>
@@ -99,12 +102,11 @@
 <div style="display: none" id="rewardClaimedMsg">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h4>Your reward has been claimed! But...</h4>
+            <h4>Successful!</h4>
         </div>
         <div class="col-ms-12 text-secondary">
-            <p>The fulfilment of your reward is subject to approval by the 
-                Admin. An email will be sent to you once it is approved. In the meanwhile 
-                you are advised to update your contact details to enable us reach you. 
+            <p>Dear <span id="cust-name"></span>, thanks for redemption of
+                your gift item, our team will contact you shortly.
             </p>
         </div>
     </div>
