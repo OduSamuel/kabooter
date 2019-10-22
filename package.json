@@ -10,7 +10,7 @@
     "debug": "^3.1.0",
     "dotenv": "^6.0.0",
     "jsonwebtoken": "^8.2.2",
-    "knex": "^0.14.6",
+    "knex": "^0.19.5",
     "koa": "^2.5.1",
     "koa-bodyparser": "^4.2.1",
     "koa-combine-routers": "^3.0.1",
